@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 public class ProductRepositoryTests {
     @Autowired
-    private ProductRepository repository;
+    ProductRepository repository;
 
-    private long existingId;
-    private long nonExistingId;
-    private long countTotalProducts;
+    long existingId;
+    long nonExistingId;
+    long countTotalProducts;
 
     @BeforeEach
     void setUp() {
@@ -29,35 +29,35 @@ public class ProductRepositoryTests {
     }
 
     @Test
-    public void findByIdShouldReturnNonEmptyOptionalWhenIdExists() {
+    void findByIdShouldReturnNonEmptyOptionalWhenIdExists() {
         Optional<Product> result = repository.findById(existingId);
         assertTrue(result.isPresent());
     }
 
     @Test
-    public void findByIdShouldReturnEmptyOptionalWhenIdDoesNotExist() {
+    void findByIdShouldReturnEmptyOptionalWhenIdDoesNotExist() {
         Optional<Product> result = repository.findById(nonExistingId);
         assertTrue(result.isEmpty());
     }
 
     @Test
-    public void saveShouldPersistWithAutoIncrementWhenIdIsNull() {
+    void saveShouldPersistWithAutoIncrementWhenIdIsNull() {
         Product product = Factory.createProduct();
         product.setId(null);
         product = repository.save(product);
         assertNotNull(product.getId());
-        assertEquals(countTotalProducts+1, product.getId());
+        assertEquals(countTotalProducts + 1, product.getId());
     }
 
     @Test
-    public void deleteShouldDeleteObjectWhenIdExists() {
+    void deleteShouldDeleteObjectWhenIdExists() {
         repository.deleteById(existingId);
         Optional<Product> result = repository.findById(existingId);
         assertFalse(result.isPresent());
     }
 
     @Test
-    public void deleteShouldThrowExceptionWhenIdDoesNotExist() {
+    void deleteShouldThrowEmptyResultDataAccessExceptionWhenIdDoesNotExist() {
         assertThrows(EmptyResultDataAccessException.class, () -> {
             repository.deleteById(nonExistingId);
         });
