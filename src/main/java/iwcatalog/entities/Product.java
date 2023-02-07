@@ -11,41 +11,35 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
-    @Getter
     @Setter
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
     @Setter
     private String name;
 
-    @Getter
     @Setter
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Getter
     @Setter
     private Double price;
 
-    @Getter
     @Setter
     private String imgUrl;
 
-    @Getter
     @Setter
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
 
-    @Getter
     @ManyToMany
     @JoinTable(name = "tb_product_category",
             joinColumns = @JoinColumn(name = "product_id"),
