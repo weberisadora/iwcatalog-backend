@@ -2,7 +2,6 @@ package iwcatalog.resources;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import iwcatalog.dto.ProductDTO;
-import iwcatalog.resources.ProductResource;
 import iwcatalog.services.ProductService;
 import iwcatalog.services.exceptions.DatabaseException;
 import iwcatalog.services.exceptions.ResourceNotFoundException;
@@ -27,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ProductResource.class)
-public class ProductResourcesTests {
+public class ProductResourceTests {
     @Autowired
     private MockMvc mockMvc;
 
