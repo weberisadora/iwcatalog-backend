@@ -32,21 +32,21 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 public class ProductServiceTests {
     @InjectMocks
-    ProductService productService;
+    private ProductService productService;
 
     @Mock
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Mock
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
-    long existingId;
-    long nonExistingId;
-    long dependentId;
-    Product product;
-    PageImpl<Product> page;
-    ProductDTO productDTO;
-    Category category;
+    private Long existingId;
+    private Long nonExistingId;
+    private Long dependentId;
+    private Product product;
+    private PageImpl<Product> page;
+    private ProductDTO productDTO;
+    private Category category;
 
     @BeforeEach
     void setUp() {

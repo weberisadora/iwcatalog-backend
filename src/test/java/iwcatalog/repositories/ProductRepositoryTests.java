@@ -16,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 public class ProductRepositoryTests {
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
-    long existingId;
-    long nonExistingId;
-    long countTotalProducts;
+    private Long existingId;
+    private Long nonExistingId;
+    private Long countTotalProducts;
 
     @BeforeEach
     void setUp() {

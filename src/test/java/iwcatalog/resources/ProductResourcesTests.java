@@ -29,19 +29,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ProductResource.class)
 public class ProductResourcesTests {
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @MockBean
-    ProductService productService;
+    private ProductService productService;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
-    Long existingId;
-    Long nonExistingId;
-    Long dependentId;
-    ProductDTO productDTO;
-    PageImpl<ProductDTO> page;
+    private Long existingId;
+    private Long nonExistingId;
+    private Long dependentId;
+    private ProductDTO productDTO;
+    private PageImpl<ProductDTO> page;
 
     @BeforeEach
     void setUp() {
