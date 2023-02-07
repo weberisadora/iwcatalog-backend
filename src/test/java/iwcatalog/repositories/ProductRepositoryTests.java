@@ -1,6 +1,7 @@
 package iwcatalog.repositories;
 
 import iwcatalog.entities.Product;
+import iwcatalog.repositories.ProductRepository;
 import iwcatalog.tests.Factory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 public class ProductRepositoryTests {
     @Autowired
-    ProductRepository repository;
+    ProductRepository productRepository;
 
     long existingId;
     long nonExistingId;
@@ -30,13 +31,13 @@ public class ProductRepositoryTests {
 
     @Test
     void findByIdShouldReturnNonEmptyOptionalWhenIdExists() {
-        Optional<Product> result = repository.findById(existingId);
+        Optional<Product> result = productRepository.findById(existingId);
         assertTrue(result.isPresent());
     }
 
     @Test
     void findByIdShouldReturnEmptyOptionalWhenIdDoesNotExist() {
-        Optional<Product> result = repository.findById(nonExistingId);
+        Optional<Product> result = productRepository.findById(nonExistingId);
         assertTrue(result.isEmpty());
     }
 
@@ -44,22 +45,22 @@ public class ProductRepositoryTests {
     void saveShouldPersistWithAutoIncrementWhenIdIsNull() {
         Product product = Factory.createProduct();
         product.setId(null);
-        product = repository.save(product);
+        product = productRepository.save(product);
         assertNotNull(product.getId());
         assertEquals(countTotalProducts + 1, product.getId());
     }
 
     @Test
     void deleteShouldDeleteObjectWhenIdExists() {
-        repository.deleteById(existingId);
-        Optional<Product> result = repository.findById(existingId);
+        productRepository.deleteById(existingId);
+        Optional<Product> result = productRepository.findById(existingId);
         assertFalse(result.isPresent());
     }
 
     @Test
     void deleteShouldThrowEmptyResultDataAccessExceptionWhenIdDoesNotExist() {
         assertThrows(EmptyResultDataAccessException.class, () -> {
-            repository.deleteById(nonExistingId);
+            productRepository.deleteById(nonExistingId);
         });
     }
 }

@@ -5,6 +5,7 @@ import iwcatalog.entities.Category;
 import iwcatalog.entities.Product;
 import iwcatalog.repositories.CategoryRepository;
 import iwcatalog.repositories.ProductRepository;
+import iwcatalog.services.ProductService;
 import iwcatalog.services.exceptions.DatabaseException;
 import iwcatalog.services.exceptions.ResourceNotFoundException;
 import iwcatalog.tests.Factory;
