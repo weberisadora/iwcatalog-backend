@@ -4,6 +4,7 @@ package iwcatalog.services;
 import iwcatalog.dto.RoleDTO;
 import iwcatalog.dto.UserDTO;
 import iwcatalog.dto.UserInsertDTO;
+import iwcatalog.dto.UserUpdateDTO;
 import iwcatalog.entities.Role;
 import iwcatalog.entities.User;
 import iwcatalog.repositories.RoleRepository;
@@ -57,7 +58,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) {
+    public UserDTO update(Long id, UserUpdateDTO dto) {
         try {
             User entity = userRepository.getOne(id);
             copyDtoToEntity(dto, entity);
