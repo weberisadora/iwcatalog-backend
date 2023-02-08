@@ -2,7 +2,7 @@ package iwcatalog.resources.exceptions;
 
 import iwcatalog.services.exceptions.DatabaseException;
 import iwcatalog.services.exceptions.ResourceNotFoundException;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

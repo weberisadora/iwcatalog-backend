@@ -5,11 +5,10 @@ import iwcatalog.entities.Category;
 import iwcatalog.entities.Product;
 import iwcatalog.repositories.CategoryRepository;
 import iwcatalog.repositories.ProductRepository;
-import iwcatalog.services.ProductService;
 import iwcatalog.services.exceptions.DatabaseException;
 import iwcatalog.services.exceptions.ResourceNotFoundException;
 import iwcatalog.tests.Factory;
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -65,11 +64,11 @@ public class ProductServiceTests {
         when(productRepository.findById(existingId)).thenReturn(Optional.of(product));
         when(productRepository.findById(nonExistingId)).thenReturn(Optional.empty());
 
-        when(productRepository.getReferenceById(existingId)).thenReturn(product);
-        when(productRepository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+        when(productRepository.getOne(existingId)).thenReturn(product);
+        when(productRepository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
 
-        when(categoryRepository.getReferenceById(existingId)).thenReturn(category);
-        when(categoryRepository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+        when(categoryRepository.getOne(existingId)).thenReturn(category);
+        when(categoryRepository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
 
         doNothing().when(productRepository).deleteById(existingId);
         doThrow(EmptyResultDataAccessException.class).when(productRepository).deleteById(nonExistingId);

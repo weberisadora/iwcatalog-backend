@@ -1,6 +1,6 @@
 package iwcatalog.dto;
 
-import iwcatalog.entities.Category;
+import iwcatalog.entities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,16 +8,16 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-@Getter
 @Setter
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
-public class CategoryDTO implements Serializable {
+@NoArgsConstructor
+public class RoleDTO implements Serializable {
     private Long id;
-    private String name;
+    private String authority;
 
-    public CategoryDTO(Category entity) {
+    public RoleDTO(Role entity) {
         id = entity.getId();
-        name = entity.getName();
+        authority = entity.getAuthority();
     }
 }

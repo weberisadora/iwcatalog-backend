@@ -8,7 +8,7 @@ import iwcatalog.repositories.CategoryRepository;
 import iwcatalog.repositories.ProductRepository;
 import iwcatalog.services.exceptions.DatabaseException;
 import iwcatalog.services.exceptions.ResourceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -52,7 +52,7 @@ public class ProductService {
     @Transactional
     public ProductDTO update(Long id, ProductDTO dto) {
         try {
-            Product entity = productRepository.getReferenceById(id);
+            Product entity = productRepository.getOne(id);
             copyDtoToEntity(dto, entity);
             entity = productRepository.save(entity);
             return new ProductDTO(entity);
@@ -80,7 +80,7 @@ public class ProductService {
 
         entity.getCategories().clear();
         for (CategoryDTO categoryDTO : dto.getCategories()) {
-            Category category = categoryRepository.getReferenceById(categoryDTO.getId());
+            Category category = categoryRepository.getOne(categoryDTO.getId());
             entity.getCategories().add(category);
         }
     }

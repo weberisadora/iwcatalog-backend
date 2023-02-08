@@ -1,6 +1,6 @@
 package iwcatalog.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
