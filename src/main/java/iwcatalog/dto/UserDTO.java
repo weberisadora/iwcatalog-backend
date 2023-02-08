@@ -26,7 +26,7 @@ public class UserDTO implements Serializable {
     @Setter
     private String lastName;
 
-    @Email(message = "Por favor, digite um e-mail válido")
+    @Email(message = "Email inválido")
     @Setter
     private String email;
 
