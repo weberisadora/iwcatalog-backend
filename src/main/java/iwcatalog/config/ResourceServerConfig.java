@@ -1,7 +1,7 @@
 package iwcatalog.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
@@ -16,6 +16,7 @@ import java.util.Arrays;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+
     @Autowired
     private Environment env;
 
@@ -28,6 +29,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private static final String[] ADMIN = {"/users/**"};
 
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenStore(tokenStore);
@@ -35,9 +37,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
         // H2
-        if (Arrays.asList(env.getActiveProfiles()).contains("test"))
+        if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
+        }
 
         http.authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
@@ -46,4 +50,5 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(ADMIN).hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
+
 }
