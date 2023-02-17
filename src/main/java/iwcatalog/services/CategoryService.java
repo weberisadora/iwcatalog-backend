@@ -5,7 +5,9 @@ import iwcatalog.entities.Category;
 import iwcatalog.repositories.CategoryRepository;
 import iwcatalog.services.exceptions.DatabaseException;
 import iwcatalog.services.exceptions.ResourceNotFoundException;
+
 import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -46,7 +48,7 @@ public class CategoryService {
     @Transactional
     public CategoryDTO update(Long id, CategoryDTO dto) {
         try {
-            Category entity = repository.getOne(id);
+            Category entity = repository.getReferenceById(id);
             entity.setName(dto.getName());
             entity = repository.save(entity);
             return new CategoryDTO(entity);
