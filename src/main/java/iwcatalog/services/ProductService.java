@@ -8,7 +8,9 @@ import iwcatalog.repositories.CategoryRepository;
 import iwcatalog.repositories.ProductRepository;
 import iwcatalog.services.exceptions.DatabaseException;
 import iwcatalog.services.exceptions.ResourceNotFoundException;
+
 import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -29,9 +31,10 @@ public class ProductService {
     private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAllPaged(Pageable pageable) {
-        Page<Product> list = productRepository.findAll(pageable);
-        return list.map(entity -> new ProductDTO(entity));
+    public Page<ProductDTO> findAllPaged(Long categoryId, String name, Pageable pageable) {
+        Category category = (categoryId == 0) ? null : categoryRepository.getReferenceById(categoryId);
+        Page<Product> list = productRepository.find(category, name, pageable);
+        return list.map(x -> new ProductDTO(x));
     }
 
     @Transactional(readOnly = true)
@@ -52,7 +55,7 @@ public class ProductService {
     @Transactional
     public ProductDTO update(Long id, ProductDTO dto) {
         try {
-            Product entity = productRepository.getOne(id);
+            Product entity = productRepository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
             entity = productRepository.save(entity);
             return new ProductDTO(entity);
@@ -80,7 +83,7 @@ public class ProductService {
 
         entity.getCategories().clear();
         for (CategoryDTO categoryDTO : dto.getCategories()) {
-            Category category = categoryRepository.getOne(categoryDTO.getId());
+            Category category = categoryRepository.getReferenceById(categoryDTO.getId());
             entity.getCategories().add(category);
         }
     }
