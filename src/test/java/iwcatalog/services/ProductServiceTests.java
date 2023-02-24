@@ -66,11 +66,11 @@ public class ProductServiceTests {
         when(productRepository.findById(existingId)).thenReturn(Optional.of(product));
         when(productRepository.findById(nonExistingId)).thenReturn(Optional.empty());
 
-        when(productRepository.getOne(existingId)).thenReturn(product);
-        when(productRepository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
+        when(productRepository.getReferenceById(existingId)).thenReturn(product);
+        when(productRepository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
 
-        when(categoryRepository.getOne(existingId)).thenReturn(category);
-        when(categoryRepository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
+        when(categoryRepository.getReferenceById(existingId)).thenReturn(category);
+        when(categoryRepository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
 
         doNothing().when(productRepository).deleteById(existingId);
         doThrow(EmptyResultDataAccessException.class).when(productRepository).deleteById(nonExistingId);
