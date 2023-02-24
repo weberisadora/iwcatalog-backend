@@ -32,7 +32,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAllPaged(Long categoryId, String name, Pageable pageable) {
-        Category category = (categoryId == 0) ? null : categoryRepository.getReferenceById(categoryId);
+        Category category = (categoryId == 0) ? null : categoryRepository.getOne(categoryId);
         Page<Product> list = productRepository.find(category, name, pageable);
         return list.map(x -> new ProductDTO(x));
     }
@@ -55,7 +55,7 @@ public class ProductService {
     @Transactional
     public ProductDTO update(Long id, ProductDTO dto) {
         try {
-            Product entity = productRepository.getReferenceById(id);
+            Product entity = productRepository.getOne(id);
             copyDtoToEntity(dto, entity);
             entity = productRepository.save(entity);
             return new ProductDTO(entity);
@@ -83,7 +83,7 @@ public class ProductService {
 
         entity.getCategories().clear();
         for (CategoryDTO categoryDTO : dto.getCategories()) {
-            Category category = categoryRepository.getReferenceById(categoryDTO.getId());
+            Category category = categoryRepository.getOne(categoryDTO.getId());
             entity.getCategories().add(category);
         }
     }
